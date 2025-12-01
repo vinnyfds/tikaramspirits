@@ -191,7 +191,6 @@ export function Footer() {
                       setMessage('')
                     }}
                     className="w-full"
-                    disabled={step === 'submitting'}
                   />
                   {message && (
                     <p className="mt-2 text-sm text-tikaram-cream/80">{message}</p>
@@ -200,7 +199,6 @@ export function Footer() {
                 <Button
                   type="button"
                   onClick={handleNext}
-                  disabled={step === 'submitting'}
                   className="w-full"
                 >
                   Next
@@ -224,7 +222,6 @@ export function Footer() {
                     setMessage('')
                   }}
                   className="w-full"
-                  disabled={step === 'submitting'}
                 />
                 <Input
                   type="text"
@@ -235,17 +232,15 @@ export function Footer() {
                     setMessage('')
                   }}
                   className="w-full"
-                  disabled={step === 'submitting'}
                 />
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={step === 'submitting'}
                   className="w-full"
                 >
                   Get Coupon
                 </Button>
-                {step === 'error' && message && (
+                {message && (
                   <p className="text-sm text-tikaram-rust mt-2">{message}</p>
                 )}
               </div>
