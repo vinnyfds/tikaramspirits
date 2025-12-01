@@ -29,7 +29,7 @@ export const WelcomeEmail = ({ couponCode = 'TIKARAM-FIRST-2025' }: WelcomeEmail
           </Text>
           
           <Section style={couponSection}>
-            <Text style={couponCode}>{couponCode}</Text>
+            <Text style={couponCodeStyle}>{couponCode}</Text>
           </Section>
           
           <Section style={buttonSection}>
@@ -81,7 +81,7 @@ const couponSection = {
   textAlign: 'center' as const,
 }
 
-const couponCode = {
+const couponCodeStyle = {
   color: '#D4AF37',
   fontSize: '32px',
   fontWeight: '700',
