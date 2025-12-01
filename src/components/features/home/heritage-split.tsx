@@ -39,7 +39,7 @@ export function HeritageSplit() {
 
           {/* Visit Card */}
           <Link
-            href="/store-locator"
+            href="/find-us"
             className="group relative rounded-[2.5rem] overflow-hidden min-h-[400px] lg:min-h-[500px] shadow-sm hover:shadow-md transition-all duration-300"
           >
             <Image
