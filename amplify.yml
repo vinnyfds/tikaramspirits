@@ -6,6 +6,9 @@ frontend:
         - npm install
     build:
       commands:
+        # Inject necessary environment variables for compilation:
+        - echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL" >> .env.production
+        - echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY" >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
