@@ -3,6 +3,9 @@ import type { Store } from '@/types/index'
 
 export type { Store }
 
+// Type for Supabase query result when selecting stores via join
+type StoreRow = { stores: Store | null }
+
 // Legacy hardcoded stores data (kept for backward compatibility if needed)
 export const stores: Store[] = [
   // Miami stores
@@ -132,9 +135,14 @@ export async function getStoresByProductSlug(slug: string): Promise<Store[]> {
 
     console.log('[getStoresByProductSlug] Raw data count:', data.length)
     
-    const mappedStores = data
+    // Type the rows properly to avoid TypeScript inference issues
+    // Convert through unknown first to handle Supabase's type inference
+    const rows = data as unknown as StoreRow[]
+    
+    // Map and filter to get valid Store objects
+    const mappedStores: Store[] = rows
       .map((row) => row.stores)
-      .filter((store): store is Store => store !== null) as Store[]
+      .filter((store): store is Store => store !== null)
     
     console.log('[getStoresByProductSlug] Mapped stores count:', mappedStores.length)
     
