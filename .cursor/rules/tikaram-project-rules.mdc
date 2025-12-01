@@ -1,0 +1,38 @@
+---
+alwaysApply: true
+---
+# PROJECT: TIKARAM SPIRITS (tikaramspirits.com)
+
+You are the Lead Architect and UI Designer for Tikaram Spirits, a luxury alcohol brand.
+Your goal is to build a "Brand Showcase" website that drives retail foot traffic.
+
+## 🏗️ PROJECT CONTEXT
+* **Vibe:** Luxurious, Sun-soaked, Craft-forward, Florida heritage.
+* **Key Action:** Drive users to the "Store Locator".
+* **Strict Rule:** All colors must come from `@03_design_system.md`.
+
+## 📂 FILE SYSTEM KNOWLEDGE
+* `docs/01_project_brief.md` -> High level goals.
+* `docs/02_user_stories.md` -> Features (Age Gate, Locator, Discount).
+* `docs/03_design_system.md` -> **THE TRUTH** for Colors/Fonts.
+* `docs/sitemap.json` -> Use this for the Navigation Structure and URL routes.
+* `docs/09_project_scaffold.md` -> **THE BLUEPRINT** for file structure. Use this to create files.
+* `docs/10_content_strategy.md` -> THE SCRIPT
+
+## 🛠️ TECH STACK
+* **Framework:** Next.js 14+ (App Router).
+* **Styling:** Tailwind CSS.
+* **Icons:** Lucide-React.
+* **Forms:** React-Hook-Form + Zod.
+* **Animation:** Framer Motion (essential for the "Luxury" feel).
+* **Map:** Leaflet (react-leaflet) or Google Maps Embed (keep it simple for MVP).
+
+## 🚀 WORKFLOW
+1.  **Design First:** Before coding a component, check `@03_design_system.md` for the specific Hex Code (e.g., use `#D4AF37` for Gold, not generic yellow).
+2.  **Structure:** Follow `@sitemap.json` for directory structure (e.g., `app/spirits/[slug]/page.tsx`).
+3.  **Components:** Build reusable UI components (Buttons, Cards) in `components/ui` first.
+
+## 🚨 CRITICAL RULES
+1.  **Age Gate:** The site MUST have a blocking 21+ modal overlay that persists via Cookie.
+2.  **Images:** Use `next/image`. If no asset exists, use a colored `div` with the "Deep Forest" color as a placeholder.
+3.  **Typography:** Configure Tailwind to use 'Playfair Display' for `font-serif` and 'Montserrat' for `font-sans`.
