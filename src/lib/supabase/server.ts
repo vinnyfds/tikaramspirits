@@ -10,7 +10,10 @@ export async function createClient() {
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll()
+          return cookieStore.getAll().map((cookie) => ({
+            name: cookie.name,
+            value: cookie.value,
+          }))
         },
         setAll(cookiesToSet) {
           try {
@@ -19,15 +22,6 @@ export async function createClient() {
             )
           } catch {
             // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
-          }
-        },
-        remove(name, options) {
-          try {
-            cookieStore.delete(name, options)
-          } catch {
-            // The `remove` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
           }
