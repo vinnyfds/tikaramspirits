@@ -25,9 +25,9 @@ export const products: Product[] = [
     slug: 'ponce-de-leon-rum',
     category: 'Rum',
     headline: 'Ponce de Leon Rum',
-    subhead: '80 proof • 40% ABV',
+    subhead: 'Florida Caribbean Blend • 40% ABV || 80 Proof',
     description:
-      'Named after the explorer who sought the Fountain of Youth, this rum might be the closest thing to it. Aged for 12 long years in American Oak, it absorbs the humid Florida air to create a profile that is deep, complex, and impossibly smooth.',
+      'A bright and vibrant spirit crafted from high-quality Barbados molasses. Unaged and bottled immediately, it preserves the fresh, pure flavors of the cane, delivering a clean, complex, and lively profile.',
     tastingNotes: {
       nose: ' Smooth, mellow, and slightly sweet with undertones of tropical fruit and warm molasses.',
       palate: 'Dried apricot, dark chocolate, warm spice.',
@@ -41,15 +41,15 @@ export const products: Product[] = [
     image: '/assets/products/bottle-ponce-rum.jpg',
     imagePng: '/assets/products/bottle-ponce-rum.png',
     process:
-      'Our Ponce de Leon Rum begins with premium sugarcane molasses sourced from Florida farms. After fermentation, the spirit is distilled in our copper pot stills, then aged for 12 years in American Oak barrels. The humid Florida climate accelerates the aging process, allowing the rum to develop its rich, complex character in less time than traditional aging methods.',
+      'Our Ponce de Leon Rum begins with premium sugarcane molasses sourced from high-quality Barbados suppliers. After fermentation, the spirit is distilled in our copper pot stills, then bottled immediately to preserve the fresh, pure flavors of the cane. This unaged approach captures the vibrant, clean character of the molasses, delivering a spirit that is bright, complex, and lively.',
     ingredients:
-      'Premium sugarcane molasses, Florida spring water, natural yeast cultures. No artificial flavors or colors added.',
+      'Premium sugarcane molasses from Barbados, Florida spring water, natural yeast cultures. No artificial flavors or colors added.',
   },
   {
     slug: 'florida-bourbon',
     category: 'Bourbon',
     headline: 'Florida Bourbon',
-    subhead: 'Small Batch • 110 Proof',
+    subhead: 'Small Batch • 55% ABV || 110 Proof',
     description:
       'Bold as the Florida heat. Aged in charred American oak, delivering a rich, spicy profile with a smooth caramel finish.',
     tastingNotes: {
@@ -73,9 +73,9 @@ export const products: Product[] = [
     slug: 'paan-liqueur',
     category: 'Liqueur',
     headline: 'Tikaram Paan Liqueur',
-    subhead: 'Exotic Blend • 15% ABV',
+    subhead: 'Exotic Blend • 15% ABV || 30 Proof',
     description:
-      'A tribute to heritage. Sweet, aromatic, and unlike anything else. Infused with betel leaf, rose petal, and fennel.',
+      'A unique tribute to heritage. Crafted using a proprietary extraction method of fresh fennel seeds and aromatic gulkand, this exotic liqueur offers an unforgettable journey of flavor, bridging cultures and tradition.',
     tastingNotes: {
       nose: 'Fresh Betel Leaf',
       palate: 'Sweet Rose & Mint',
@@ -97,7 +97,7 @@ export const products: Product[] = [
     slug: 'tikaram-tequila',
     category: 'Tequila',
     headline: 'Tikaram Tequila',
-    subhead: '100% De Agave • 80 Proof',
+    subhead: '100% De Agave • 40% ABV || 80 Proof',
     description:
       'Artisan inspired. Harvested from the highlands and distilled for purity. Crisp, clean, and perfect for a Florida sunset.',
     tastingNotes: {
@@ -121,7 +121,7 @@ export const products: Product[] = [
     slug: 'tikaram-keylime-tequila',
     category: 'Tequila',
     headline: 'Tikaram Key Lime Tequila',
-    subhead: 'Key Lime Infused • 70 Proof',
+    subhead: 'Key Lime Infused • 35% ABV || 70 Proof',
     description:
       'A Florida classic meets Mexican tradition. Smooth agave tequila infused with the tart, zesty kick of authentic Florida Key Limes.',
     tastingNotes: {

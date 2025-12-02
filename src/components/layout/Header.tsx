@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Menu, User } from 'lucide-react'
@@ -18,6 +18,22 @@ export function Header() {
   const pathname = usePathname()
   const router = useRouter()
   const isHome = pathname === '/'
+
+  // Track previous pathname to detect actual navigation
+  const prevPathnameRef = useRef(pathname)
+
+  // Close menu when pathname changes (navigation occurred)
+  useEffect(() => {
+    const prevPathname = prevPathnameRef.current
+    
+    // Only close menu if pathname actually changed (not on initial render)
+    if (pathname !== prevPathname && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false)
+    }
+    
+    // Update ref for next comparison
+    prevPathnameRef.current = pathname
+  }, [pathname, isMobileMenuOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -133,7 +149,11 @@ export function Header() {
       </header>
 
       {/* Mobile Navigation */}
-      <MobileNav isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <MobileNav 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)}
+        onAuthClick={() => setIsAuthModalOpen(true)}
+      />
       
       {/* Auth Modal */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />

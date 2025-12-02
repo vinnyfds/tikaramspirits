@@ -204,7 +204,7 @@ function ProductCard({ product }: { product: Product }) {
         {/* Right Side - Bottle Image */}
         <div className="flex-1 relative min-h-[400px] lg:min-h-[500px] bg-[#F9F9F7]">
           <Image
-            src={product.image}
+            src={product.imagePng || product.image}
             alt={product.headline}
             fill
             className="object-contain p-8"

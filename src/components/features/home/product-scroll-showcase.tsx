@@ -1,10 +1,11 @@
 'use client'
 
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { gsap, ScrollTrigger } from '@/lib/gsap-config'
 import { Button } from '@/components/ui/Button'
+import { getAllProducts, type Product } from '@/lib/data'
 
 type ProductSlide = {
   id: string
@@ -18,86 +19,72 @@ type ProductSlide = {
   backgroundColor: string
 }
 
-const PRODUCT_SLIDES: ProductSlide[] = [
-  {
-    id: 'paan-liqueur',
-    name: 'Tikaram Paan Liqueur',
-    tagline: 'Exotic Blend • 15% ABV',
-    description:
-      'A tribute to heritage. Sweet, aromatic, and unlike anything else. Infused with betel leaf, rose petal, and fennel. This unique liqueur bridges cultures and flavors, creating an unforgettable experience.',
-    ctaLabel: 'Discover Paan Liqueur',
-    ctaHref: '/spirits/paan-liqueur',
-    bottleImageSrc: '/assets/products/bottle-paan-liqueur.png',
+// Presentation-specific mappings (background images and colors for homepage slides)
+// These are separate from product data since they're UI-specific
+const SLIDE_PRESENTATION: Record<
+  string,
+  { backgroundImageSrc: string; backgroundColor: string; ctaLabel: string }
+> = {
+  'paan-liqueur': {
     backgroundImageSrc: '/assets/home/home-product-bg-paan-plain-1920x1080.jpg',
     backgroundColor: '#1a5f3f',
+    ctaLabel: 'Discover Paan Liqueur',
   },
-  {
-    id: 'florida-bourbon',
-    name: 'Florida Bourbon Whiskey',
-    tagline: 'Small Batch • 110 Proof',
-    description:
-      'Bold as the Florida heat. Aged in charred American oak, delivering a rich, spicy profile with a smooth caramel finish. This small-batch bourbon captures the essence of Florida craftsmanship.',
-    ctaLabel: 'Explore Florida Bourbon',
-    ctaHref: '/spirits/florida-bourbon',
-    bottleImageSrc: '/assets/products/bottle-florida-bourbon.png',
+  'florida-bourbon': {
     backgroundImageSrc: '/assets/home/home-product-bg-bourbon-plain-1920x1080.jpg',
     backgroundColor: '#8b4513',
+    ctaLabel: 'Explore Florida Bourbon',
   },
-  {
-    id: 'tikaram-tequila',
-    name: 'Tikaram Tequila',
-    tagline: '100% De Agave • 80 Proof',
-    description:
-      'Artisan inspired. Harvested from the highlands and distilled for purity. Crisp, clean, and perfect for a Florida sunset. This premium tequila embodies the spirit of craftsmanship.',
-    ctaLabel: 'Discover Tequila',
-    ctaHref: '/spirits/tikaram-tequila',
-    bottleImageSrc: '/assets/products/bottle-tequila.png',
+  'tikaram-tequila': {
     backgroundImageSrc: '/assets/home/home-product-bg-tequila-plain-1920x1080.jpg',
     backgroundColor: '#d4af37',
+    ctaLabel: 'Discover Tequila',
   },
-  {
-    id: 'tikaram-keylime-tequila',
-    name: 'Tikaram Key Lime Tequila',
-    tagline: 'Key Lime Infused • 70 Proof',
-    description:
-      'A Florida classic meets Mexican tradition. Smooth agave tequila infused with the tart, zesty kick of authentic Florida Key Limes. This unique fusion celebrates both cultures.',
-    ctaLabel: 'Try Key Lime Tequila',
-    ctaHref: '/spirits/tikaram-keylime-tequila',
-    bottleImageSrc: '/assets/products/bottle-keylime.png',
+  'tikaram-keylime-tequila': {
     backgroundImageSrc: '/assets/home/home-product-bg-keylime-plain-1920x1080.jpg',
     backgroundColor: '#90ee90',
+    ctaLabel: 'Try Key Lime Tequila',
   },
-  {
-    id: 'ponce-de-leon-rum',
-    name: 'Ponce De Leon Rum',
-    tagline: '80 proof • 40% ABV',
-    description:
-      'Named after the explorer who sought the Fountain of Youth, this rum might be the closest thing to it. Aged for 12 long years in American Oak, it absorbs the humid Florida air to create a profile that is deep, complex, and impossibly smooth.',
-    ctaLabel: 'Explore Ponce De Leon Rum',
-    ctaHref: '/spirits/ponce-de-leon-rum',
-    bottleImageSrc: '/assets/products/bottle-ponce-rum.png',
+  'ponce-de-leon-rum': {
     backgroundImageSrc: '/assets/home/home-product-bg-ponce-plain-1920x1080.jpg',
     backgroundColor: '#3d2817',
+    ctaLabel: 'Explore Ponce De Leon Rum',
   },
-]
+}
 
-// Slide asset mapping confirmation:
-// paan-liqueur → bg: /assets/home/home-product-bg-paan-plain-1920x1080.jpg, bottle: /assets/products/bottle-paan-liqueur.png
-// florida-bourbon → bg: /assets/home/home-product-bg-bourbon-plain-1920x1080.jpg, bottle: /assets/products/bottle-florida-bourbon.png
-// tikaram-tequila → bg: /assets/home/home-product-bg-tequila-plain-1920x1080.jpg, bottle: /assets/products/bottle-tequila.png
-// tikaram-keylime-tequila → bg: /assets/home/home-product-bg-keylime-plain-1920x1080.jpg, bottle: /assets/products/bottle-keylime.png
-// ponce-de-leon-rum → bg: /assets/home/home-product-bg-ponce-plain-1920x1080.jpg, bottle: /assets/products/bottle-ponce-rum.png
+// Convert Product from data.ts to ProductSlide format
+function productToSlide(product: Product): ProductSlide | null {
+  const presentation = SLIDE_PRESENTATION[product.slug]
+  if (!presentation) return null
+
+  return {
+    id: product.slug,
+    name: product.headline,
+    tagline: product.subhead,
+    description: product.description,
+    ctaLabel: presentation.ctaLabel,
+    ctaHref: `/spirits/${product.slug}`,
+    bottleImageSrc: product.imagePng || product.image,
+    backgroundImageSrc: presentation.backgroundImageSrc,
+    backgroundColor: presentation.backgroundColor,
+  }
+}
 
 export function ProductScrollShowcase() {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const trackRef = useRef<HTMLDivElement | null>(null)
 
+  // Get products from data.ts and convert to slides format
+  const PRODUCT_SLIDES = useMemo(() => {
+    const products = getAllProducts()
+    return products
+      .map(productToSlide)
+      .filter((slide): slide is ProductSlide => slide !== null)
+  }, [])
+
   useLayoutEffect(() => {
     // SSR guard
     if (typeof window === 'undefined') return
-
-    // Responsive guard: only initialize on desktop/tablet (>= 768px)
-    if (window.innerWidth < 768) return
 
     if (!trackRef.current || !sectionRef.current) return
 
@@ -125,6 +112,8 @@ export function ProductScrollShowcase() {
           scrub: 1,
           start: 'top top',
           end: () => '+=' + window.innerWidth * (slidesCount - 1),
+          anticipatePin: 1,
+          pinType: 'fixed',
           onUpdate: (self) => {
             const index = Math.round(self.progress * (slidesCount - 1))
             slides.forEach((slide, i) => {
@@ -210,16 +199,16 @@ export function ProductScrollShowcase() {
       {/* Pinned Region - Exactly viewport height */}
       <div
         ref={sectionRef}
-        className="relative h-screen overflow-hidden bg-tikaram-off-white"
+        className="relative h-screen overflow-x-auto overflow-y-hidden bg-tikaram-off-white"
       >
         <div className="h-full w-full flex items-center">
           {/* Product Slides Track */}
-          <div ref={trackRef} className="flex flex-col md:flex-row h-full w-full">
+          <div ref={trackRef} className="flex flex-row h-full w-full">
             {PRODUCT_SLIDES.map((slide, index) => (
               <div
                 key={slide.id}
                 data-slide={slide.id}
-                className="w-full md:min-w-full h-full relative overflow-hidden flex flex-col lg:flex-row items-center justify-center"
+                className="w-full min-w-full h-full relative overflow-hidden flex flex-col lg:flex-row items-center justify-center"
               >
                 {/* Background Layer */}
                 <div

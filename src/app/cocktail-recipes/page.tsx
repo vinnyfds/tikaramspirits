@@ -44,10 +44,10 @@ function FilterDropdown({ label, options, value, onChange }: FilterDropdownProps
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-10"
+            className="fixed inset-0 z-30"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-20 min-w-[200px] max-h-[300px] overflow-y-auto">
+          <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-40 min-w-[200px] max-h-[300px] overflow-y-auto">
             <button
               onClick={() => {
                 onChange(null)
@@ -177,7 +177,7 @@ export default function CocktailRecipesPage() {
       </section>
 
       {/* Sticky Filter Bar */}
-      <div className="sticky top-0 z-50 bg-white shadow-level-1">
+      <div className="sticky top-0 z-40 bg-white shadow-level-1">
         <div className="max-w-[1400px] mx-auto">
           {/* Row 1: Spirit Tabs */}
           <div className="flex flex-nowrap overflow-x-auto w-full px-4 justify-start md:justify-center gap-4 md:gap-8 py-4 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">

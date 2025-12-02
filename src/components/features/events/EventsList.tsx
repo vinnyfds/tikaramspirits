@@ -37,7 +37,7 @@ export function EventsList({ events }: EventsListProps) {
   return (
     <>
       {/* Filter Bar */}
-      <div className="sticky top-0 z-50 bg-white shadow-level-1">
+      <div className="sticky top-0 z-40 bg-white shadow-level-1">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-nowrap overflow-x-auto w-full px-4 justify-start md:justify-center gap-4 md:gap-8 py-4 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {(['ALL', 'UPCOMING EVENTS', 'TASTING EVENTS', 'MUSIC FEST', 'SPECIAL EVENTS'] as FilterType[]).map((filter) => (

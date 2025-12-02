@@ -24,16 +24,6 @@ export function TestimonialsSection({ products, initialReviews, onProductChange 
     }
   }, [selectedProductSlug, onProductChange])
 
-  // Debug logging
-  useEffect(() => {
-    console.log('[TestimonialsSection] Initial reviews prop:', initialReviews)
-    console.log('[TestimonialsSection] Current reviews state:', reviews)
-    console.log('[TestimonialsSection] Reviews count:', reviews.length)
-    if (reviews.length > 0) {
-      console.log('[TestimonialsSection] First review sample:', reviews[0])
-      console.log('[TestimonialsSection] Review keys:', Object.keys(reviews[0]))
-    }
-  }, [initialReviews, reviews])
 
   // Fetch reviews when selectedProductSlug changes (but not on initial mount)
   useEffect(() => {
@@ -74,7 +64,7 @@ export function TestimonialsSection({ products, initialReviews, onProductChange 
   return (
     <>
       {/* Filter Bar */}
-      <div className="sticky top-0 z-50 bg-white shadow-level-1">
+      <div className="sticky top-0 z-40 bg-white shadow-level-1">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex flex-nowrap overflow-x-auto w-full px-4 justify-start md:justify-center gap-4 md:gap-8 py-4 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {products.map((product) => (

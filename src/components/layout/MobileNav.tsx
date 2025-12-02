@@ -1,15 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { Globe, MapPin } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Drawer } from '@/components/ui/Drawer'
+import { Button } from '@/components/ui/Button'
 
 type MobileNavProps = {
   isOpen: boolean
   onClose: () => void
+  onAuthClick: () => void
 }
 
-export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+export function MobileNav({ isOpen, onClose, onAuthClick }: MobileNavProps) {
+  const router = useRouter()
+  
   const navLinks = [
     { label: 'Spirits', href: '/spirits' },
     { label: 'Story', href: '/about' },
@@ -19,6 +23,20 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     { label: 'FIND US', href: '/find-us' },
   ]
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Prevent default navigation
+    e.preventDefault()
+    e.stopPropagation()
+    
+    // Close menu immediately when link is clicked
+    onClose()
+    
+    // Use setTimeout to ensure state update happens before navigation
+    setTimeout(() => {
+      router.push(href)
+    }, 100)
+  }
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose} side="right">
       <nav className="flex flex-col gap-6">
@@ -26,26 +44,24 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           <Link
             key={link.href}
             href={link.href}
-            onClick={onClose}
-            className="font-sans text-base uppercase tracking-widest text-[#D4AF37]/90 hover:text-[#D4AF37] transition-colors py-2"
+            onClick={(e) => handleLinkClick(e, link.href)}
+            className="font-sans text-base uppercase tracking-widest text-[#D4AF37]/90 hover:text-[#D4AF37] transition-colors py-2 block"
           >
             {link.label}
           </Link>
         ))}
 
-        <div className="pt-6 mt-6 border-t border-[#D4AF37]/20 flex flex-col gap-4">
-          <Link
-            href="/store-locator"
-            onClick={onClose}
-            className="flex items-center gap-3 text-[#D4AF37]/90 hover:text-[#D4AF37] transition-colors"
+        <div className="pt-6 mt-6 border-t border-[#D4AF37]/20">
+          <Button
+            variant="primary"
+            onClick={() => {
+              onClose()
+              onAuthClick()
+            }}
+            className="w-full"
           >
-            <MapPin className="w-5 h-5" />
-            <span className="font-sans text-sm uppercase tracking-widest">Store Locator</span>
-          </Link>
-          <button className="flex items-center gap-3 text-[#D4AF37]/90 hover:text-[#D4AF37] transition-colors">
-            <Globe className="w-5 h-5" />
-            <span className="font-sans text-sm uppercase tracking-widest">Language</span>
-          </button>
+            JOIN US
+          </Button>
         </div>
       </nav>
     </Drawer>
